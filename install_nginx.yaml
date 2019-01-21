@@ -1,0 +1,23 @@
+---
+- name: Nginx Webserver Setup
+  hosts: web
+  become: true
+  gather_facts: no
+
+  tasks:
+
+  - name: Add epel-release repo
+    yum:
+      name: epel-release
+      state: present
+
+  - name: Ensure Nginx is installed
+    yum:
+      name: nginx
+      state: latest
+  
+  - name: Ensure Nginx is running and enabled
+    systemd:
+      name: nginx
+      state: started
+      enabled: yes
